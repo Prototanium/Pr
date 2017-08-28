@@ -14,6 +14,7 @@
 /** The maximum allowed size for a serialized block, in bytes (network rule) */
 static const unsigned int MAX_BLOCK_SIZE = 1000000;
 static const int AUXPOW_CHAIN_ID = 0x75;
+static const int AUXPOW_CHAIN_ID_FORK = 0x77;
 
 enum
 {
@@ -43,7 +44,7 @@ class CBlockHeader
 {
 public:
     // header
-    static const int32_t CURRENT_VERSION=3;
+    static const int32_t CURRENT_VERSION=4;
     int32_t nVersion;
     uint256 hashPrevBlock;
     uint256 hashMerkleRoot;
@@ -73,7 +74,7 @@ public:
 
     void SetNull()
     {
-        nVersion = CBlockHeader::CURRENT_VERSION | (AUXPOW_CHAIN_ID * BLOCK_VERSION_CHAIN_START);
+        nVersion = CBlockHeader::CURRENT_VERSION | (AUXPOW_CHAIN_ID_FORK * BLOCK_VERSION_CHAIN_START);
         hashPrevBlock.SetNull();
         hashMerkleRoot.SetNull();
         nTime = 0;
