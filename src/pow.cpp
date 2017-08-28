@@ -203,7 +203,7 @@ uint256 GetBlockProof(const CBlockIndex& block)
     return (~bnTarget / (bnTarget + 1)) + 1;
 }
 
-bool CheckBlockProofOfWork(const CBlockHeader *pblock)
+bool CheckBlockProofOfWork(const CBlockHeader *pblock, int nHeight)
 {
 	// There's an issue with blocks prior to the auxpow fork reporting an invalid chain ID.
 	// As no version earlier than the 0.10 client a) has version 3 blocks and b) 
@@ -211,8 +211,9 @@ bool CheckBlockProofOfWork(const CBlockHeader *pblock)
 	//	There's probably a more elegant way to implement this.
 
 	if (pblock->nVersion > 2) {
-		LogPrintf("nVersion : %d, ChainID : %d, %d\n",pblock->nVersion,pblock->GetChainID(),AUXPOW_CHAIN_ID);
-	    if (!Params().AllowMinDifficultyBlocks() && (pblock->nVersion & BLOCK_VERSION_AUXPOW && pblock->GetChainID() != AUXPOW_CHAIN_ID))
+		LogPrintf("nVersion : %d, ChainID : %d, %d\n",pblock->nVersion,pblock->GetChainID(),(nHeight >= 625000 ? AUXPOW_CHAIN_ID_FORK : AUXPOW_CHAIN_ID));
+
+	    if (!Params().AllowMinDifficultyBlocks() && (pblock->nVersion & BLOCK_VERSION_AUXPOW && pblock->GetChainID() != (nHeight >= 625000 ? AUXPOW_CHAIN_ID_FORK : AUXPOW_CHAIN_ID)))
 	        return error("CheckBlockProofOfWork() : block does not have our chain ID");	
 
 	    if (pblock->auxpow.get() != NULL)
