@@ -1913,7 +1913,7 @@ void static UpdateTip(CBlockIndex *pindexNew) {
         for (int i = 0; i < 100 && pindex != NULL; i++)
         {
 			if (pindex->nVersion > CBlock::CURRENT_VERSION &&
-				(pindex->nVersion & ~BLOCK_VERSION_AUXPOW) != (CBlockHeader::CURRENT_VERSION | ((chainActive.Tip()->nHeight >= 650000 ? AUXPOW_CHAIN_ID_FORK : AUXPOW_CHAIN_ID) * BLOCK_VERSION_CHAIN_START)))
+				(pindex->nVersion & ~BLOCK_VERSION_AUXPOW) != (CBlockHeader::CURRENT_VERSION | ((chainActive.Tip()->nHeight >= 700000 ? AUXPOW_CHAIN_ID_FORK : AUXPOW_CHAIN_ID) * BLOCK_VERSION_CHAIN_START)))
                 ++nUpgraded;
             pindex = pindex->pprev;
         }
