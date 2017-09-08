@@ -210,9 +210,8 @@ bool CheckBlockProofOfWork(const CBlockHeader *pblock)
 	//	has auxpow, anything that isn't a version 3 block can be checked normally.
 	//	There's probably a more elegant way to implement this.
 
-    bool fTestNet = GetBoolArg("-testnet", false);
     int chainID;
-    if (pblock->nVersion >= 4)
+    if (pblock->nVersion >= 7798784)
         chainID = AUXPOW_CHAIN_ID_FORK;
     else
         chainID = AUXPOW_CHAIN_ID;

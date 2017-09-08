@@ -1911,7 +1911,7 @@ void static UpdateTip(CBlockIndex *pindexNew) {
         int nUpgraded = 0;
         const CBlockIndex* pindex = chainActive.Tip();
         int chainID;
-        if (pindex->nVersion >= 4)
+        if (pindex->nVersion >= 7798784)
             chainID = AUXPOW_CHAIN_ID_FORK;
         else
             chainID = AUXPOW_CHAIN_ID;
